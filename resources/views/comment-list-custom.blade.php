@@ -15,7 +15,7 @@
     @endif
 
     @foreach ($this->comments as $comment)
-        <livewire:commentions::comment-custom
+        <livewire:commentions::comment
             :key="$comment->getContentHash()"
             :comment="$comment"
             :mentionables="$mentionables"

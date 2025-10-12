@@ -65,14 +65,14 @@ class CommentionsServiceProvider extends PackageServiceProvider
             [
                 Js::make('commentions-scripts', __DIR__ . '/../resources/dist/commentions.js'),
             ],
-            'bura1-development/' . static::$name
+            'bura1/' . static::$name
         );
 
         FilamentAsset::register(
             [
                 Css::make('commentions', __DIR__ . '/../resources/dist/commentions.css'),
             ],
-            'bura1-development/' . static::$name
+            'bura1/' . static::$name
         );
 
         Gate::policy(CommentModel::class, config('commentions.comment.policy'));
