@@ -1,0 +1,67 @@
+<?php
+
+namespace Bura1\Commentions\Livewire;
+
+use Illuminate\Database\Eloquent\Model;
+use Bura1\Commentions\Actions\SaveComment;
+use Bura1\Commentions\Config;
+use Bura1\Commentions\Livewire\Concerns\HasMentions;
+use Bura1\Commentions\Livewire\Concerns\HasPagination;
+use Bura1\Commentions\Livewire\Concerns\HasPolling;
+use Bura1\Commentions\Livewire\Concerns\HasSidebar;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Renderless;
+use Livewire\Component;
+
+class Comments2 extends Component
+{
+    use HasMentions;
+    use HasPagination;
+    use HasPolling;
+    use HasSidebar;
+
+    public Model $record;
+
+    public string $commentBody = '';
+
+    public $disableNewComment;
+
+    protected $rules = [
+        'commentBody' => 'required|string',
+    ];
+
+    #[Renderless]
+    public function save()
+    {
+        $this->validate();
+
+        SaveComment::run(
+            $this->record,
+            Config::resolveAuthenticatedUser(),
+            $this->commentBody
+        );
+
+        $this->clear();
+        $this->dispatch('comment:saved');
+    }
+
+    public function render()
+    {
+        return view('commentions::comments2');
+    }
+
+    #[On('body:updated')]
+    #[Renderless]
+    public function updateCommentBodyContent($value): void
+    {
+        $this->commentBody = $value;
+    }
+
+    #[Renderless]
+    public function clear(): void
+    {
+        $this->commentBody = '';
+
+        $this->dispatch('comments:content:cleared');
+    }
+}

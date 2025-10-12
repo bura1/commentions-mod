@@ -1,0 +1,41 @@
+<?php
+
+namespace Bura1\Commentions\Filament\Actions;
+
+use Filament\Tables\Actions\Action;
+use Illuminate\Database\Eloquent\Model;
+use Bura1\Commentions\Filament\Concerns\HasMentionables;
+use Bura1\Commentions\Filament\Concerns\HasPolling;
+use Bura1\Commentions\Filament\Concerns\HasSidebar;
+
+class CommentsTableAction extends Action
+{
+    use HasMentionables;
+    use HasPolling;
+    use HasSidebar;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this
+            ->icon('heroicon-o-chat-bubble-left-right')
+            ->modalContent(fn (Model $record) => view('commentions::comments-modal', [
+                'record' => $record,
+                'mentionables' => $this->getMentionables(),
+                'pollingInterval' => $this->getPollingInterval(),
+                'sidebarEnabled' => $this->isSidebarEnabled(),
+                'showSubscribers' => $this->showSubscribers(),
+            ]))
+            ->modalWidth($this->isSidebarEnabled() ? '4xl' : 'xl')
+            ->label(__('commentions::comments.label'))
+            ->modalSubmitAction(false)
+            ->modalCancelAction(false)
+            ->modalAutofocus(false);
+    }
+
+    public static function getDefaultName(): ?string
+    {
+        return 'commentList';
+    }
+}
