@@ -36,8 +36,6 @@ const renderSuggestionsComponent = (items) => {
                 .filter(item => item.name.toLowerCase().startsWith(query.toLowerCase()))
                 .slice(0, 5);
 
-            console.log('filteredItems', items, filteredItems, query);
-
             Alpine.store('filamentCommentsMentionsFiltered').items = filteredItems;
             Alpine.store('filamentCommentsMentionsFiltered').selectedIndex = 0;
 
@@ -50,9 +48,9 @@ const renderSuggestionsComponent = (items) => {
             const nodeAfter = editor.view.state.selection.$to.nodeAfter
             const overrideSpace = nodeAfter?.text?.startsWith(' ')
 
-            if (editor.view.state.mention$.text.length > 1) {
-                range.to = range.from + (editor.view.state.mention$.text.length - 1);
-            }
+            // if (editor.view.state.mention$.text.length > 1) {
+            //     range.to = range.from + (editor.view.state.mention$.text.length - 1);
+            // }
 
             if (overrideSpace) {
                 range.to += 1

@@ -26,6 +26,10 @@ class Comments extends Component
 
     public $disableNewComment;
 
+    public $showCommentList = true;
+    public $showMainActionButtons = true;
+    public $isCreateMode = false;
+
     protected $rules = [
         'commentBody' => 'required|string',
     ];
@@ -55,6 +59,10 @@ class Comments extends Component
     public function updateCommentBodyContent($value): void
     {
         $this->commentBody = $value;
+
+        if ($this->isCreateMode) {
+            $this->dispatch('commentions:value-updated', $value);
+        }
     }
 
     #[Renderless]

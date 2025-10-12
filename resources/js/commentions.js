@@ -5,6 +5,18 @@ import Placeholder from '@tiptap/extension-placeholder'
 import suggestion from './suggestion'
 
 document.addEventListener('alpine:init', () => {
+    document.addEventListener('livewire:initialized', () => {
+        Livewire.on('commentions:value-updated', (value) => {
+
+            const el = document.querySelector('#commentions-value-on-create');
+
+            if (el) {
+                el.value = value;
+                el.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+        });
+    });
+
     Alpine.data('editor', (content, mentions, component) => {
         let editor
 

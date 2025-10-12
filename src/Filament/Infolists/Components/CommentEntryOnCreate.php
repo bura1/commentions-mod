@@ -7,6 +7,7 @@ use Filament\Infolists\Components\Entry;
 use Bura1\Commentions\Filament\Concerns\HasMentionables;
 use Bura1\Commentions\Filament\Concerns\HasPagination;
 use Bura1\Commentions\Filament\Concerns\HasPolling;
+use Livewire\Attributes\On;
 
 class CommentEntryOnCreate extends Field
 {
