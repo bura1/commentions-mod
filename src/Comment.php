@@ -39,6 +39,10 @@ class Comment extends Model implements RenderableComment
         'body',
         'author_type',
         'author_id',
+        'commentable_type',
+        'commentable_id',
+        'created_at',
+        'updated_at',
     ];
 
     public function getTable()
