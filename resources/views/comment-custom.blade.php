@@ -116,7 +116,7 @@
                 </div>
             </div>
         @else
-            <div class="comm:mt-1 comm:space-y-6 comm:text-sm comm:text-gray-800 comm:dark:text-gray-200">{!! $comment->getParsedBody() !!}</div>
+            <div class="comm:mt-1 comm:space-y-6 comm:text-sm comm:text-gray-800 comm:dark:text-gray-200" style="overflow-wrap: break-word; word-break: break-word;">{!! $comment->getParsedBody() !!}</div>
 
             @if ($comment->isComment())
                 <livewire:commentions::reactions
