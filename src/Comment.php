@@ -52,7 +52,7 @@ class Comment extends Model implements RenderableComment
 
     public function author(): MorphTo
     {
-        return $this->morphTo();
+        return $this->morphTo()->withTrashed();
     }
 
     public function commentable(): MorphTo
